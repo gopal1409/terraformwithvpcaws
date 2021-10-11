@@ -22,6 +22,10 @@ resource "aws_security_group" "allow_ssh" {
       protocol         = "tcp"
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["::/0"]
+      prefix_list_ids = null
+      security_groups = null
+      self = null
+
     }
   ]
 
@@ -33,6 +37,9 @@ resource "aws_security_group" "allow_ssh" {
       protocol         = "-1"
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["::/0"]
+      prefix_list_ids = null
+      security_groups = null
+      self = null
     }
   ]
 

@@ -11,8 +11,9 @@ resource "aws_route_table" "PublicRouteTable" {
   depends_on = ["aws_vpc.mainvpc","aws_internet_gateway.IGW_TF"]
 }
 resource "aws_route_table_association" "publicroutable_association" {
-  subnet_id      = "${aws_subnet.Public_Subnet_A}"
-  route_table_id = "${aws_route_table.PublicRouteTable}"
+  subnet_id      = "${aws_subnet.Public_Subnet_A.id}"
+  route_table_id = "${aws_route_table.PublicRouteTable.id}"
+  depends_on = ["aws_subnet.Public_Subnet_A","aws_route_table.PublicRouteTable"]
 }
 
 resource "aws_route_table" "PrivateRouteTable" {
@@ -30,5 +31,5 @@ resource "aws_route_table" "PrivateRouteTable" {
 resource "aws_route_table_association" "privateroutetableassociation" {
   subnet_id      = "${aws_subnet.Private_Subnet_A.id}"
   route_table_id = "${aws_route_table.PrivateRouteTable.id}"
-  depends_on = ["aws_subnet.PrivateSubnet_A","aws_route_table.PrivateRouteTable"]
+  depends_on = ["aws_subnet.Private_Subnet_A","aws_route_table.PrivateRouteTable"]
 }
