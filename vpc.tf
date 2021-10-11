@@ -58,7 +58,7 @@ resource "aws_internet_gateway" "IGW_TF" {
 
 #we will create an ealstic ip
 resource "aws_eip" "EIP" {
-  vpc_id = "${aws_vpc.mainvpc.id}"
+  vpc = true
   tags = {
     Name = "EIP_TF_Gopal"
   }
@@ -70,7 +70,7 @@ resource "aws_eip" "EIP" {
 
 resource "aws_nat_gateway" "NATGW" {
   allocation_id = "{aws_eip.EIP.id}"
-  subnet_id     = aws_subnet.example.id
+  subnet_id     = aws_subnet.Public_Subnet_A.id
 
   tags = {
     Name = "NAT_GW_gopal"
@@ -78,5 +78,5 @@ resource "aws_nat_gateway" "NATGW" {
 
   # To ensure proper ordering, it is recommended to add an explicit dependency
   # on the Internet Gateway for the VPC.
-  depends_on = [aws_internet_gateway.example]
+  depends_on = ["aws_eip.EIP","aws_subnet.Public_Subnet_A"]
 }
